@@ -14,10 +14,10 @@ typedef struct {
     int contactCount;
 } AddressBook;
 
-void createContact(AddressBook *addressBook);
-void searchContact(AddressBook *addressBook);
+void createContact(AddressBook *addressBook, int contact);
+void searchContact(AddressBook *addressBook,char* tsearch);
 void editContact(AddressBook *addressBook);
-void deleteContact(AddressBook *addressBook);
+void deleteContact(AddressBook *addressBook,char* tsearch);
 void listContacts(AddressBook *addressBook, int sortCriteria);
 void initialize(AddressBook *addressBook);
 void saveContactsToFile(AddressBook *AddressBook);

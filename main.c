@@ -1,8 +1,11 @@
 #include <stdio.h>
+#include<stdio_ext.h>
 #include "contact.h"
 
 int main() {
-    int choice;
+    int choice=0;
+    char tsearch[50];
+    int sortChoice=0;
     AddressBook addressBook;
     initialize(&addressBook); // Initialize the address book
 
@@ -20,23 +23,38 @@ int main() {
         
         switch (choice) {
             case 1:
-                createContact(&addressBook);
+                createContact(&addressBook,-1);
                 break;
             case 2:
-                searchContact(&addressBook);
+                __fpurge(stdin);
+                printf("Searching contacts...\n");
+                printf("Enter name, phone or email to search :\t");
+                scanf("%[^\n]",tsearch);
+                searchContact(&addressBook, tsearch);
                 break;
             case 3:
-                editContact(&addressBook);
+                printf("Editing...\n");
+                __fpurge(stdin);
+                
+             editContact(&addressBook);
                 break;
             case 4:
-                deleteContact(&addressBook);
+                __fpurge(stdin);
+                printf("\nEnter the Name or phone no. or email of contact to delete : ");
+                scanf("%[^\n]",tsearch);
+                deleteContact(&addressBook,tsearch);
                 break;
             case 5:          
-                listContacts(&addressBook, sortChoice);
+                printf("Choose sorting criteria:\n");
+                printf("1. Sort by Name\n");
+                printf("2. Sort by Phone\n");
+                printf("3. Sort by Email\n");
+                scanf("%d", &sortChoice);
+               listContacts(&addressBook, sortChoice);
                 break;
             case 6:
                 printf("Saving...\n");
-                //saveContactsToFile(&addressBook);
+                saveContactsToFile(&addressBook);
                 break;   
             case 7:
                 printf("Exiting...\n");
@@ -44,7 +62,9 @@ int main() {
             default:
                 printf("Invalid choice. Please try again.\n");
         }
-    } while (choice != 7);
+        __fpurge(stdin);
+        
+    } while (choice!=7);
     
        return 0;
 }
